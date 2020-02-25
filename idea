@@ -1,0 +1,33 @@
+flashcards
+groups/decks
+select and train multiple groups/decks
+select and train by (class or) category
+cards appear more often the lower your success-rate is
+cards that havent appeared for a while will always appear 
+
+card struct {
+    word in lang1 / question
+    word in lang2 / answer
+    (class)
+    categories
+    has appeared n times
+    sucessful n times
+    last appeared
+}
+
+(class enum {
+    phrase
+    verb
+    noun
+    adjective
+    other
+})
+
+load into memory at start of training
+offload to db after training
+
+db-api:
+
+GET /Decks []string
+GET /Decks/<name> Deck
+PUT /Decks/<name>
