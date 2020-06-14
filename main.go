@@ -71,15 +71,9 @@ func loop(w *app.Window) error {
 		case system.FrameEvent:
 			gtx := layout.NewContext(&ops, e)
 
-			train(gtx, th)
+			screen(gtx, th)
 
 			e.Frame(gtx.Ops)
 		}
-	}
-}
-
-func swapScreen() {
-	switch screen {
-
 	}
 }
