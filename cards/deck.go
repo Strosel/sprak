@@ -9,7 +9,7 @@ var timeCap = time.Hour * 24 * 7
 
 type Deck struct {
 	Name     string
-	Cards    []*Card
+	Cards    []Card
 	Pool     []int
 	Shuffled bool
 }
@@ -53,9 +53,9 @@ func (d Deck) Categories() []string {
 	return cat
 }
 
-func (d Deck) Pick() *Card {
+func (d Deck) Pick() Card {
 	if len(d.Pool) == 0 {
-		return new(Card)
+		return Card{}
 	}
 	return d.Cards[d.Pool[rand.Intn(len(d.Pool))]]
 }
