@@ -78,7 +78,7 @@ func loop(w *app.Window) error {
 	}
 }
 
-func SwapScreen() {
+func swapScreen() {
 	switch screen {
 
 	}
