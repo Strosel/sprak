@@ -13,23 +13,12 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
-	"github.com/strosel/sprak/cards"
 	"golang.org/x/exp/shiny/materialdesign/icons"
 )
 
-type Screen int
-
-const (
-	listS Screen = iota
-	trainS
-	deckS //new and edit
-	cardS
-)
-
 var (
-	fontSize  = unit.Dp(32)
-	cardCount = 0
-	flip      = false
+	fontSize = unit.Dp(32)
+	flip     = false
 
 	bttns = map[string]*widget.Clickable{
 		"card":      new(widget.Clickable),
@@ -41,14 +30,13 @@ var (
 		"incorrect": new(widget.Icon),
 	}
 
-	deck cards.Deck
-	err  error
+	screen = train
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	trainS.Swap()
 
+	var err error
 	icns["correct"], err = widget.NewIcon(icons.NavigationCheck)
 	if err != nil {
 		log.Fatal(err)
@@ -90,11 +78,8 @@ func loop(w *app.Window) error {
 	}
 }
 
-func (s Screen) Swap() {
-	switch s {
-	case trainS:
-		cardCount = 0
-		//TODO
-		deck = cards.Deck{}
+func SwapScreen() {
+	switch screen {
+
 	}
 }

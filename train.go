@@ -64,11 +64,6 @@ func drawAns(th *material.Theme, card cards.Card) layout.Widget {
 
 func train(gtx layout.Context, th *material.Theme) {
 	card := cards.Card{Q: "Q", A: "A"}
-	if cardCount == 0 {
-		deck.Shuffle()
-		// card = deck.Pick()
-		cardCount++
-	}
 
 	layout.UniformInset(unit.Dp(8)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{
