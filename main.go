@@ -9,6 +9,7 @@ import (
 	"gioui.org/font/gofont"
 	"gioui.org/io/system"
 	"gioui.org/layout"
+	"gioui.org/op"
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
@@ -30,31 +31,29 @@ var (
 	cardCount = 0
 	flip      = false
 
-	bttns = map[string]*widget.Button{
-		"card":      new(widget.Button),
-		"correct":   new(widget.Button),
-		"incorrect": new(widget.Button),
+	bttns = map[string]*widget.Clickable{
+		"card":      new(widget.Clickable),
+		"correct":   new(widget.Clickable),
+		"incorrect": new(widget.Clickable),
 	}
-	icns = map[string]*material.Icon{
-		"correct":   new(material.Icon),
-		"incorrect": new(material.Icon),
+	icns = map[string]*widget.Icon{
+		"correct":   new(widget.Icon),
+		"incorrect": new(widget.Icon),
 	}
 
 	deck cards.Deck
-	card *cards.Card
 	err  error
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	gofont.Register()
 	trainS.Swap()
 
-	icns["correct"], err = material.NewIcon(icons.NavigationCheck)
+	icns["correct"], err = widget.NewIcon(icons.NavigationCheck)
 	if err != nil {
 		log.Fatal(err)
 	}
-	icns["incorrect"], err = material.NewIcon(icons.NavigationClose)
+	icns["incorrect"], err = widget.NewIcon(icons.NavigationClose)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -70,8 +69,9 @@ func main() {
 }
 
 func loop(w *app.Window) error {
-	th := material.NewTheme()
-	gtx := layout.NewContext(w.Queue())
+	th := material.NewTheme(gofont.Collection())
+	var ops op.Ops
+
 	for {
 		e := <-w.Events()
 		switch e := e.(type) {
@@ -81,7 +81,7 @@ func loop(w *app.Window) error {
 			e.Cancel = true
 			w.Invalidate()
 		case system.FrameEvent:
-			gtx.Reset(e.Config, e.Size)
+			gtx := layout.NewContext(&ops, e)
 
 			train(gtx, th)
 
