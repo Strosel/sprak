@@ -1,0 +1,75 @@
+#%RAML 1.0
+title: Sprak flashcards
+mediaType: application/json
+
+types:
+  Card:
+    type: object
+    properties: 
+      question:   string
+      answer:     string
+      categories?: string[]
+      trained:    number
+      success:    number
+      last:       datetime
+  Deck:
+    type: object
+    properties:
+      name:   string
+      cards:  Card[]
+
+/Decks:
+  get:
+    description: Get the list of available decks
+    responses:
+      200:
+        body: string[]
+  /{name}:
+    uriParameters:
+      name:
+        type: string
+    get:
+      description: Get deck
+      responses:
+        200:
+          body:
+            application/json:
+              properties:
+                deck:
+                  type:        Deck
+    post: 
+      description: Insert new deck
+      body:
+        application/json:
+          properties:
+            deck:
+              description: The insert deck
+              type:        Deck
+              required:    true
+      responses:
+        200:
+          description: Successfull insert
+        500:
+          description: Failed insert
+    put: 
+      description: Update deck
+      body:
+        application/json:
+          properties:
+            deck:
+              description: The updated deck
+              type:        Deck
+              required:    true
+      responses:
+        200:
+          description: Successfull update
+        500:
+          description: Failed update
+    delete: 
+      description: Delete deck
+      responses:
+        200:
+          description: Successfull deletion
+        500:
+          description: Failed deletion
+

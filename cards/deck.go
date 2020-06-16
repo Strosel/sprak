@@ -8,10 +8,10 @@ import (
 var timeCap = time.Hour * 24 * 7
 
 type Deck struct {
-	Name     string
-	Cards    []Card
-	Pool     []int
-	Shuffled bool
+	Name     string `bson:"name" json:"name"`
+	Cards    []Card `bson:"cards" json:"cards"`
+	Pool     []int  `bson:"-" json:"-"`
+	Shuffled bool   `bson:"-" json:"-"`
 }
 
 func (d *Deck) Shuffle() {

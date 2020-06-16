@@ -1,14 +1,16 @@
 package cards
 
-import "time"
+import (
+	"time"
+)
 
 type Card struct {
-	Q          string
-	A          string
-	Categories []string
-	Trained    int
-	Success    int
-	Last       time.Time
+	Q          string    `bson:"question" json:"question"`
+	A          string    `bson:"answer" json:"answer"`
+	Categories []string  `bson:"categories,omitempty" json:"categories,omitempty"`
+	Trained    int       `bson:"trained" json:"trained"`
+	Success    int       `bson:"success" json:"success"`
+	Last       time.Time `bson:"last" json:"last"`
 }
 
 func (c Card) SuccessRate() float64 {
